@@ -27,12 +27,12 @@ function Product({ product }) {
               <h6>
                         {product.is_sale ? (
                                 <>
-                                  <span>{product.sale_price}</span>
-                                  <del>{product.price}</del>
+                                  <span>{numberFormat(product.sale_price)}</span>
+                                  <del>{numberFormat(product.price)}</del>
                                 </>
                             ) : (
                                 <>
-                                  <span>{product.price}</span>
+                                  <span>{numberFormat(product.price)}</span>
                                 </>
                             )} 
                 <span>تومان</span>
