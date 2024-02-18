@@ -1,6 +1,6 @@
 @import 'bootstrap/dist/css/bootstrap.rtl.min.css';
 @import 'bootstrap-icons/font/bootstrap-icons.css';
-
+@import 'react-toastify/dist/ReactToastify.css';
 
 @font-face {
   font-family: "Vazir";
@@ -620,7 +620,7 @@ a:focus {
 
 .about_section .img-box img {
   width: 100%;
-  max-width: 445px;
+  max-width: 500px;
   position: relative;
   z-index: 2;
 }
@@ -1305,4 +1305,8 @@ a:focus {
     float: left;
     width: 50%;
   }
+}
+.Toastify__toast-body {
+  font-family: "Vazir", sans-serif !important;
+  direction: rtl;
 }
