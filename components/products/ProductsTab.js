@@ -8,7 +8,7 @@ import Link from "next/link";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
-const ProductsTab = ({tabList,tabPanel}) => {
+const ProductsTab = ({ tabList,tabPanel }) => {
   return (
     <>
       <section className="food_section layout_padding-bottom p-5">
