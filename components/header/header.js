@@ -1,11 +1,15 @@
+"use client"
 import React from 'react'
 import ImageHero from '../../app/images/hero-bg.jpg';
 import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const Header = ()=>{
+  const pathName = usePathname();  
   return (
-    <div>
-      <div>
+    <div className={pathName === '/' ? '' : 'sub_page'}>
+      <div >
         <div className="hero_area">
             <div className="bg-box">
                <Image src={ImageHero} priority className='object-cover' alt='hero-image' />                
@@ -13,11 +17,11 @@ const Header = ()=>{
             <header>
                 <div className="container p-5">
                     <nav className="navbar navbar-expand-lg custom_nav-container">
-                        <a className="navbar-brand" href="index.html">
+                        <Link href='/' className="navbar-brand">
                             <span>
                                 فست فود پاییز
                             </span>
-                        </a>
+                        </Link>
 
                         <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -28,16 +32,16 @@ const Header = ()=>{
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul className="navbar-nav mx-auto">
                                 <li className="nav-item active">
-                                    <a className="nav-link" href="index.html">صفحه اصلی</a>
+                                    <Link className="nav-link" href="/">صفحه اصلی</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="menu.html">منو</a>
+                                    <Link className="nav-link" href="/menu">منو</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="about.html">درباره ما</a>
+                                    <Link className="nav-link" href="/about">درباره ما</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="contact.html">تماس باما</a>
+                                    <Link className="nav-link" href="/contact">تماس باما</Link>
                                 </li>
                             </ul>
                             <div className="user_option">
@@ -55,7 +59,7 @@ const Header = ()=>{
                     </nav>
                 </div>
             </header>
-            <section className="slider_section p-5">
+            {pathName === '/' && <section className="slider_section p-5">
                 <div id="customCarousel1" className="carousel slide" data-bs-ride="carousel">
                     <div className="carousel-inner">
                         <div className="carousel-item active">
@@ -149,7 +153,8 @@ const Header = ()=>{
                     </div>
                 </div>
 
-            </section>
+            </section>}
+            
         </div>
     </div>
     </div>
