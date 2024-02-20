@@ -1310,3 +1310,6 @@ a:focus {
   font-family: "Vazir", sans-serif !important;
   direction: rtl;
 }
+#phone_numb{
+  direction: ltr;
+}
