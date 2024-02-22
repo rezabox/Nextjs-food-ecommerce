@@ -31,17 +31,17 @@ const Header = ()=>{
 
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul className="navbar-nav mx-auto">
-                                <li className="nav-item active">
-                                    <Link className="nav-link" href="/">صفحه اصلی</Link>
+                                <li className={pathName === '/' ? 'nav-item active' : 'nav-item'}>
+                                    <Link href="/" className="nav-link">صفحه اصلی</Link>
                                 </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" href="/menu">منو</Link>
+                                <li className={pathName === '/menu' ? 'nav-item active' : 'nav-item'}>
+                                    <Link href="/menu" className="nav-link" >منو</Link>
                                 </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" href="/about">درباره ما</Link>
+                                <li className={pathName === '/about' ? 'nav-item active' : 'nav-item'}>
+                                    <Link href="/about" className="nav-link">درباره ما</Link>
                                 </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" href="/contact">تماس باما</Link>
+                                <li className={pathName === '/contact' ? 'nav-item active' : 'nav-item'}>
+                                    <Link href="/contact" className="nav-link">تماس باما</Link>
                                 </li>
                             </ul>
                             <div className="user_option">
@@ -154,7 +154,6 @@ const Header = ()=>{
                 </div>
 
             </section>}
-            
         </div>
     </div>
     </div>
