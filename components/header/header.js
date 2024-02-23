@@ -51,9 +51,9 @@ const Header = ()=>{
                                         3
                                     </span>
                                 </a>
-                                <a href="login.html" className="btn-auth">
+                                <Link href="/auth/Login" className="btn-auth">
                                     ورود
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </nav>
