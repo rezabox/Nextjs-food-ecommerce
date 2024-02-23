@@ -19,5 +19,8 @@ const handleError = (message) => {
    }
    return message
 } 
+const salePercent = (price, salePrice) => {
+    return Math.round(((price - salePrice) / price) * 100);
+}
 
-export { numberFormat, getBlurDataURL, handleError }
+export { numberFormat, getBlurDataURL, handleError, salePercent}
