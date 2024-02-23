@@ -24,12 +24,14 @@ function Product({ product }) {
           <div className="detail-box">
             <h5>{product.name}</h5>
             <p>{product.description}</p>
-            <div className="options">
-                {product.is_sale && (
+                {product.is_sale ? (
                   <div className="text-warning fs-6">
                     {salePercent(product.price, product.sale_price)}% تخفیف
                   </div>
-                )}
+                ): <>
+                  <br />
+                </>}
+            <div className="options">
               <h6>
                 {product.is_sale ? (
                   <>
