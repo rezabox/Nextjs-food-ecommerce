@@ -1,5 +1,6 @@
-import { getBlurDataURL, numberFormat } from "@/utils/help";
+import { getBlurDataURL, numberFormat, salePercent } from "@/utils/help";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 function Product({ product }) {
@@ -7,7 +8,7 @@ function Product({ product }) {
     <div>
       <div className="box">
         <div>
-          <div className="img-box">
+          <Link href={`/products/${product.slug}`} className="img-box">
             <Image
               className="img-fluid cursor-pointer"
               src={product.primary_image}
@@ -19,22 +20,27 @@ function Product({ product }) {
               blurDataURL={getBlurDataURL()}
               alt="product_image"
             />
-          </div>
+          </Link>
           <div className="detail-box">
             <h5>{product.name}</h5>
             <p>{product.description}</p>
             <div className="options">
+                {product.is_sale && (
+                  <div className="text-warning fs-6">
+                    {salePercent(product.price, product.sale_price)}% تخفیف
+                  </div>
+                )}
               <h6>
-                        {product.is_sale ? (
-                                <>
-                                  <span>{numberFormat(product.sale_price)}</span>
-                                  <del>{numberFormat(product.price)}</del>
-                                </>
-                            ) : (
-                                <>
-                                  <span>{numberFormat(product.price)}</span>
-                                </>
-                            )} 
+                {product.is_sale ? (
+                  <>
+                    <span>{numberFormat(product.sale_price)}</span>
+                    <del>{numberFormat(product.price)}</del>
+                  </>
+                ) : (
+                  <>
+                    <span>{numberFormat(product.price)}</span>
+                  </>
+                )}
                 <span>تومان</span>
               </h6>
               <a href="">
