@@ -14,13 +14,14 @@ const getFetch = async (url) => {
      }
 }
 
-const postFetch = async (url,body) => {
+const postFetch = async (url,body,headers={}) => {
   const res = await fetch(`http://localhost:8000/api${url}`, {
       cache: 'no-store',
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
+          ...headers,
       },
       body: JSON.stringify(body)
   });
