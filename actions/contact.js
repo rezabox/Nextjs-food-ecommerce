@@ -118,7 +118,7 @@ async function me(){
       }
   }
 
-  const data = await postFetch('/auth/me', {}, { 'Authorization': `Bearer ${token.value}`});
+const data = await postFetch('/auth/me', {}, { 'Authorization': `Bearer ${token.value}`});
   if (data.status === 'success') {
     return {
       user: data.data,
@@ -128,5 +128,6 @@ async function me(){
        error: "User Forbidden"
    }
 }
+
 }
 export { create, login, checkOtp, me};
