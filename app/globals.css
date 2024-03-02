@@ -1313,3 +1313,8 @@ a:focus {
 #phone_numb{
   direction: ltr;
 }
+.resend-otp-btn {
+   position: absolute;
+   left: 15px;
+   bottom: 16px;
+}
