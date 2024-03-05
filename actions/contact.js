@@ -29,6 +29,32 @@ async function create(state, formData) {
     };
   }
 }
+async function ProfileEdit(state, formData) {
+  const name = formData.get("name");
+  const email = formData.get("email");
+  if (name === "" || email === "") {
+    return {
+      status: "error",
+      message: "تمام موارد فرم پروفایل برای ویرایش الزامی است .",
+    };
+  }
+  const token = cookies().get('token');
+  const res = await postFetch("/profile/info/edit", { name, email }, { 'Authorization': `Bearer ${token.value}` });
+
+  if (res.status === "success") {
+    return {
+      status: res.status,
+      message: "پیام با موقیت ثبت شد",
+    };
+  } else {
+    return {
+      status: res.status,
+      message: handleError(res.message),
+    };
+  }
+}
+
+
 async function login(stateLogin, formData) {
   const cellphone = formData.get("cellphone");
   if (cellphone === "") {
@@ -170,4 +196,4 @@ async function ResendOtp(stateResendOtp, formData) {
     };
   }
 }
-export { create, login, checkOtp, me, ResendOtp };
+export { create, login, checkOtp, me, ResendOtp, ProfileEdit };
