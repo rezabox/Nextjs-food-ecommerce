@@ -438,7 +438,9 @@ a:focus {
   height: 20px;
   background-color: #ffbe33;
 }
-
+.grid{
+  color:#e69c00;
+}
 .card-area .card-icon-wrapper {
   display: block;
   margin: 0 auto;
@@ -1182,7 +1184,7 @@ a:focus {
   user-select: none;
 }
 
-.profile_section .list-group .list-group-item a {
+.profile_section .list-group .list-group-item {
   color: #222831;
 }
 
