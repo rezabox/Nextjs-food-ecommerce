@@ -1,6 +1,10 @@
+'use client';
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 
 function Layout({ children }) {
+  const path = usePathname();
   return (
     <div>
       <section className="profile_section layout_padding">
@@ -8,20 +12,20 @@ function Layout({ children }) {
           <div className="row">
             <div className="col-sm-12 col-lg-3">
               <ul className="list-group">
-                <li className="list-group-item">
-                  <a href="./index.html">اطلاعات کاربر</a>
+                <li className='list-group-item'>
+                  <Link href="/profile" className={path === '/profile' ? 'grid' : ''}>اطلاعات کاربر</Link>
                 </li>
                 <li className="list-group-item">
-                  <a href="./addresses.html">آدرس ها</a>
+                  <Link href="/profile/address" className={path === '/profile/address' ? 'grid' : ''}>آدرس ها</Link>
                 </li>
                 <li className="list-group-item">
-                  <a href="./orders.html">سفارشات</a>
+                  <Link href="/profile/order" className={path === '/profile/order' ? 'grid' : ''}>سفارشات</Link>
                 </li>
                 <li className="list-group-item">
-                  <a href="./transactions.html">تراکنش ها</a>
+                  <Link href="/profile/transactions" className={path === '/profile/trakonesh' ? 'grid' : ''}>تراکنش ها</Link>
                 </li>
                 <li className="list-group-item">
-                  <a href="./transactions.html">خروج</a>
+                  <Link href="/profile/exit" className={path === '/profile/exit' ? 'grid' : ''}>خروج</Link>
                 </li>
               </ul>
             </div>
