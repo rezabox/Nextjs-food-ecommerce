@@ -11,7 +11,7 @@ async function address() {
     );
   return (
     <div className="col-sm-12 col-lg-9">
-      <CreateForm  addresses={addresses} provinces={provinces} cities={cities} />
+      <CreateForm  addresses={addresses} provinces={provinces} cities={cities}/>
       <hr />
       {/* <div className="card card-body">
         <div className="row g-4">
