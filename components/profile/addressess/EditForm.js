@@ -4,6 +4,7 @@ import SubmitButton from "@/components/SubmitButton";
 import React, { useEffect, useState } from "react";
 import { useFormState } from "react-dom";
 import { toast } from "react-toastify";
+import DeleteForm from "./DeleteForm";
 
 function EditForm({ address, provinces, cities }) {
   const [citiesFilter, setCitiesFilter] = useState(cities);
@@ -85,9 +86,7 @@ function EditForm({ address, provinces, cities }) {
               />
             </div>
           </form>
-          <div className="form-delete-address">
-               <button className="btn btn-dark">حذف</button>
-          </div>
+          <DeleteForm  address={address.id}/>       
         </div>
     </div>
   );
