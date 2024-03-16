@@ -76,6 +76,7 @@ function EditForm({ address, provinces, cities }) {
                   className="form-control"
                 ></textarea>
               </div>
+              <input type="hidden" name="address_id" value={address.id} />
             </div>
             <div>
               <SubmitButton
