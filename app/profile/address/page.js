@@ -1,4 +1,5 @@
 import CreateForm from "@/components/profile/addressess/CreateForm";
+import EditForm from "@/components/profile/addressess/EditForm";
 import { getFetch } from "@/utils/fetch";
 import { cookies } from "next/headers";
 import React from "react";
@@ -6,13 +7,16 @@ import React from "react";
 async function address() {
   const token = cookies().get('token');
   const { addresses, provinces, cities } = await getFetch(
-    "/profile/addresses",
+     "/profile/addresses",
      { 'Authorization': `Bearer ${token.value}` }
     );
   return (
     <div className="col-sm-12 col-lg-9">
-      <CreateForm  addresses={addresses} provinces={provinces} cities={cities}/>
+      <CreateForm  provinces={provinces} cities={cities} />
       <hr />
+      {addresses.map(address => (
+        <EditForm address={address} provinces={provinces} cities={cities} />
+      ))}
       {/* <div className="card card-body">
         <div className="row g-4">
           <div className="col col-md-6">
