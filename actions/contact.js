@@ -104,11 +104,18 @@ async function editForm(stateEdit, formActionEdit) {
   const province_id = formActionEdit.get("province_id");
   const city_id = formActionEdit.get("city_id");
   const address = formActionEdit.get("address");
+  const address_id = formActionEdit.get("address_id");
   
   if (title === "" || address === "") {
     return {
       status: "error",
       message: "تمام موارد فرم آدرس برای ویرایش الزامی است .",
+    };
+  }
+  if (address_id === "" || null) {
+    return {
+      status: "error",
+      message: "شناسه آدرس الزامی است.",  
     };
   }
   const cellphonePattern = /^(\+98|0)?9\d{9}$/i;
@@ -127,12 +134,12 @@ async function editForm(stateEdit, formActionEdit) {
   }
 
   const token = cookies().get('token');
-  const res = await postFetch("/profile/addresses/create", { title, cellphone, postal_code, province_id, city_id, address }, { 'Authorization': `Bearer ${token.value}` });
+  const res = await postFetch("/profile/addresses/edit", { title, cellphone, postal_code, province_id, city_id, address, address_id }, { 'Authorization': `Bearer ${token.value}` });
 
   if (res.status === "success") {
     return {
       status: res.status,
-      message: "پیام با موقیت ثبت شد",
+      message: "آدرس با موفقیت ویرایش شد.",
     };
   } else {
     return {
