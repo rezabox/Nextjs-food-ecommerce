@@ -53,6 +53,94 @@ async function ProfileEdit(state, formData) {
     };
   }
 }
+async function AddressCreate(stateCreate, formActionCreate) {
+  const title = formActionCreate.get("title");
+  const cellphone = formActionCreate.get("cellphone");
+  const postal_code = formActionCreate.get("postal_code");
+  const province_id = formActionCreate.get("province_id");
+  const city_id = formActionCreate.get("city_id");
+  const address = formActionCreate.get("address");
+  
+  if (title === "" || address === "") {
+    return {
+      status: "error",
+      message: "تمام موارد فرم آدرس برای ویرایش الزامی است .",
+    };
+  }
+  const cellphonePattern = /^(\+98|0)?9\d{9}$/i;
+  if(cellphone === '' || !cellphonePattern.test(cellphone)){
+    return {
+      status: "error",
+      message:"فیلد شماره تماس نامعتبر است",
+    }
+  }
+  const postalPattern = /^\d{5}[ -]?\d{5}$/i;
+  if(postal_code === '' || !postalPattern.test(postal_code)){
+      return {
+        status: "error",
+        message:"فیلد کد پستی نامعتبر است ."
+      }
+  }
+
+  const token = cookies().get('token');
+  const res = await postFetch("/profile/addresses/create", { title, cellphone, postal_code, province_id, city_id, address }, { 'Authorization': `Bearer ${token.value}` });
+
+  if (res.status === "success") {
+    return {
+      status: res.status,
+      message: "پیام با موقیت ثبت شد",
+    };
+  } else {
+    return {
+      status: res.status,
+      message: handleError(res.message),
+    };
+  }
+}
+async function editForm(stateEdit, formActionEdit) {
+  const title = formActionEdit.get("title");
+  const cellphone = formActionEdit.get("cellphone");
+  const postal_code = formActionEdit.get("postal_code");
+  const province_id = formActionEdit.get("province_id");
+  const city_id = formActionEdit.get("city_id");
+  const address = formActionEdit.get("address");
+  
+  if (title === "" || address === "") {
+    return {
+      status: "error",
+      message: "تمام موارد فرم آدرس برای ویرایش الزامی است .",
+    };
+  }
+  const cellphonePattern = /^(\+98|0)?9\d{9}$/i;
+  if(cellphone === '' || !cellphonePattern.test(cellphone)){
+    return {
+      status: "error",
+      message:"فیلد شماره تماس نامعتبر است",
+    }
+  }
+  const postalPattern = /^\d{5}[ -]?\d{5}$/i;
+  if(postal_code === '' || !postalPattern.test(postal_code)){
+      return {
+        status: "error",
+        message:"فیلد کد پستی نامعتبر است ."
+      }
+  }
+
+  const token = cookies().get('token');
+  const res = await postFetch("/profile/addresses/create", { title, cellphone, postal_code, province_id, city_id, address }, { 'Authorization': `Bearer ${token.value}` });
+
+  if (res.status === "success") {
+    return {
+      status: res.status,
+      message: "پیام با موقیت ثبت شد",
+    };
+  } else {
+    return {
+      status: res.status,
+      message: handleError(res.message),
+    };
+  }
+}
 
 
 async function login(stateLogin, formData) {
@@ -196,4 +284,4 @@ async function ResendOtp(stateResendOtp, formData) {
     };
   }
 }
-export { create, login, checkOtp, me, ResendOtp, ProfileEdit };
+export { create, login, checkOtp, me, ResendOtp, ProfileEdit, AddressCreate, editForm };
