@@ -6,7 +6,7 @@ import React from "react";
 import SubmitButton from "@/components/SubmitButton";
 import { AddressCreate } from "@/actions/contact";
 
-function CreateForm({addresses, provinces, cities}) {
+function CreateForm({ provinces, cities }) {
   const [stateCreate, formActionCreate] = useFormState(AddressCreate, {});
   useEffect(() => {
     toast(stateCreate?.message, { type: `${stateCreate?.status}` });
