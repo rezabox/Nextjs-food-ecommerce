@@ -2,6 +2,7 @@
 
 import { postFetch } from "@/utils/fetch";
 import { handleError } from "@/utils/help";
+import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 
 async function create(state, formData) {
@@ -148,7 +149,30 @@ async function editForm(stateEdit, formActionEdit) {
     };
   }
 }
+async function deletedForm(stateDelete, formActionDelete) {
+  const address_id = formActionDelete.get('address_id');
+  if(address_id === '' || null){
+    return {
+      status: "error",
+      message: "شناسه آدرس الزامی است.",  
+    };
+  }
+  const token = cookies().get('token');
+  const res = await postFetch("/profile/addresses/delete", { address_id }, { 'Authorization': `Bearer ${token.value}` });
 
+  if (res.status === "success") {
+    revalidatePath("/profile/address")
+    return {
+      status: res.status,
+      message: "حذف آدرس با موفقیت انجام شد.",
+    };
+  } else {
+    return {
+      status: res.status,
+      message: handleError(res.message),
+    };
+  }
+}
 
 async function login(stateLogin, formData) {
   const cellphone = formData.get("cellphone");
@@ -291,4 +315,4 @@ async function ResendOtp(stateResendOtp, formData) {
     };
   }
 }
-export { create, login, checkOtp, me, ResendOtp, ProfileEdit, AddressCreate, editForm };
+export { create, login, checkOtp, me, ResendOtp, ProfileEdit, AddressCreate, editForm, deletedForm };
