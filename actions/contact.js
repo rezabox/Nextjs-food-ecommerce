@@ -87,6 +87,7 @@ async function AddressCreate(stateCreate, formActionCreate) {
   const res = await postFetch("/profile/addresses/create", { title, cellphone, postal_code, province_id, city_id, address }, { 'Authorization': `Bearer ${token.value}` });
 
   if (res.status === "success") {
+    revalidatePath('proflie/address');
     return {
       status: res.status,
       message: "پیام با موقیت ثبت شد",
