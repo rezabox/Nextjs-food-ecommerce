@@ -210,6 +210,20 @@ async function login(stateLogin, formData) {
     };
   }
 }
+async function logout(stateLogout, formData) {
+  const token = cookies().get('token');  
+  const data = await postFetch("/auth/logout", {} , { 'Authorization': `Bearer ${token.value}` });
+  if (data.status === "success") {
+    cookies().delete('token'); 
+    return {
+       success: "خروج با موفقیت انجام شد."
+    };
+  } else {
+    return {
+      error:"خروج به درستی انجام نشد."
+    };
+  }
+}
 async function checkOtp(stateLoginOtp, formData) {
   const otp = formData.get("otp");
   if (otp === "") {
@@ -316,4 +330,4 @@ async function ResendOtp(stateResendOtp, formData) {
     };
   }
 }
-export { create, login, checkOtp, me, ResendOtp, ProfileEdit, AddressCreate, editForm, deletedForm };
+export { create, login, checkOtp, me, ResendOtp, ProfileEdit, AddressCreate, editForm, deletedForm, logout};
