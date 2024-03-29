@@ -1,15 +1,14 @@
 'use client'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import React from 'react'
 
 function Pagination({ links }) {
   const pathName = usePathname();
-  const searchParams = useSearchParams();
   const router = useRouter();
   function handelPage(e){
-       const params = new URLSearchParams(searchParams);
+       const params = new URLSearchParams();
        params.set('page', e);
-       router.replace(`${pathName}?${params}`)
+       router.replace(`${pathName}?${params.toString()}`)
   }
   return (
     <div>
