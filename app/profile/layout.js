@@ -1,10 +1,16 @@
 'use client';
+import { logout } from "@/actions/contact";
+import AuthContext from "@/context/AuthContext";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useContext } from "react";
 
 function Layout({ children }) {
   const path = usePathname();
+  const { logoutContext } = useContext(AuthContext);
+  const router = useRouter() 
+
   return (
     <div>
       <section className="profile_section layout_padding">
@@ -22,10 +28,14 @@ function Layout({ children }) {
                   <Link href="/profile/order" className={path === '/profile/order' ? 'grid' : ''}>سفارشات</Link>
                 </li>
                 <li className="list-group-item">
-                  <Link href="/profile/transactions" className={path === '/profile/trakonesh' ? 'grid' : ''}>تراکنش ها</Link>
+                  <Link href="/profile/transactions" className={path === '/profile/transaction' ? 'grid' : ''}>تراکنش ها</Link>
                 </li>
                 <li className="list-group-item">
-                  <Link href="/profile/exit" className={path === '/profile/exit' ? 'grid' : ''}>خروج</Link>
+                  <Link href="#" className={path === '/profile/exit' ? 'grid' : ''} onClick={async () => {
+                     await logout();
+                     logoutContext()
+                     router.push('/');
+                  }}>خروج</Link>
                 </li>
               </ul>
             </div>
