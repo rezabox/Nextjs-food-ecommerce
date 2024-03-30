@@ -1,16 +1,19 @@
 'use client'
 
-import { addToCart } from "@/redux/slices/cardSlice";
+import { addToCart, removeFromCart } from "@/redux/slices/cardSlice";
 import { getBlurDataURL, numberFormat, salePercent } from "@/utils/help";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 function Product({ product }) {
   const dispatch = useDispatch()
   const handleClick = (pr) => {
-    dispatch(addToCart({ product , qty: 1 }))    
+    dispatch(removeFromCart(product.id))
+    dispatch(addToCart({ product , qty: 1 }))
+    toast.success('محصول به سبد خرید اضافه شد.')    
   }
 
   return (
