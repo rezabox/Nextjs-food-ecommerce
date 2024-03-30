@@ -92,7 +92,7 @@ async function OrdersPage({ params }) {
                                     <td className="fw-bold">{item.product_name}</td>
                                     <td>{numberFormat(item.price)} تومان</td>
                                     <td>{item.quantity}</td>
-                                    <td>{numberFormat(item.subtotal)} تومان</td>
+                                    <td>{numberFormat(item.price * item.quantity)} تومان</td>
                                   </tr>
                                 ))}
                               </tbody>
