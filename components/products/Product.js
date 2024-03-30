@@ -1,9 +1,18 @@
+'use client'
+
+import { addToCart } from "@/redux/slices/cardSlice";
 import { getBlurDataURL, numberFormat, salePercent } from "@/utils/help";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { useDispatch } from "react-redux";
 
 function Product({ product }) {
+  const dispatch = useDispatch()
+  const handleClick = (pr) => {
+    dispatch(addToCart({ product , qty: 1 }))    
+  }
+
   return (
     <div>
       <div className="box">
@@ -45,9 +54,9 @@ function Product({ product }) {
                 )}
                 <span>تومان</span>
               </h6>
-              <a href="">
+              <button onClick={() => handleClick(product)}>
                 <i className="bi bi-cart-fill text-white fs-5"></i>
-              </a>
+              </button>
             </div>
           </div>
         </div>
