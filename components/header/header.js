@@ -1,14 +1,18 @@
 "use client";
+
 import React, { useContext } from "react";
 import ImageHero from "../../app/images/hero-bg.jpg";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import AuthContext from "@/context/AuthContext";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const pathName = usePathname();
   const { user } = useContext(AuthContext);
+  const state = useSelector((state => state.shoppingCard))
+
   return (
     <div className={pathName === "/" ? "" : "sub_page"}>
       <div>
@@ -83,12 +87,12 @@ const Header = () => {
                     </li>
                   </ul>
                   <div className="user_option">
-                    <a className="cart_link position-relative" href="cart.html">
+                    <Link className="cart_link position-relative" href="/cart">
                       <i className="bi bi-cart-fill text-white fs-5"></i>
-                      <span className="position-absolute top-0 translate-middle badge rounded-pill">
-                        3
+                      <span className={state.cart.length == '0' ? 'd-none' : "position-absolute top-0 translate-middle badge rounded-pill"}>
+                        {state.cart.length}
                       </span>
-                    </a>
+                    </Link>
                     {user ? (
                       <Link href="/profile" className="btn-auth">
                         پروفایل
