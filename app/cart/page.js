@@ -4,7 +4,7 @@ import {
   clear_item,
   decrement,
   increment,
-  removeFromCart,
+  removeFromCart2,
 } from "@/redux/slices/cardSlice";
 import { numberFormat, salePercent } from "@/utils/help";
 import Image from "next/image";
@@ -102,7 +102,7 @@ function page() {
                             <td>
                               <i
                                 className="bi bi-x text-danger fw-bold fs-4 cursor-pointer"
-                                onClick={() => dispatch(removeFromCart(pro.id))}
+                                onClick={() => dispatch(removeFromCart2(pro.id))}
                               ></i>
                             </td>
                           </tr>
