@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 
 function Product({ product }) {
   const dispatch = useDispatch()
+  
   const handleClick = (pr) => {
     dispatch(removeFromCart(product.id))
     dispatch(addToCart({ product , qty: 1 }))
