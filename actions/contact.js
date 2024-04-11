@@ -224,6 +224,33 @@ async function logout(stateLogout, formData) {
     };
   }
 }
+
+async function checkCoupon(stateCheckCoupon, formData) {
+  const code = formData.get('code');  
+  if(code === ''){
+     return {
+        status: "error",
+        message: "وارد کردن کد کوپن الزامی است."
+     }
+  }
+  const token = cookies().get('token');  
+  const data = await postFetch("/check-coupon", {code} ,  { 'Authorization': `Bearer ${token.value}` });
+
+  if (data.status === "success") {
+    return {
+       status: data.status,
+       message: "کد تخفیف شما اعمال شد.",
+       percent: data.data.percentage,
+       code,
+    };
+  } else {
+    return {
+       status: data.status,
+       message: handleError(data.message)
+    };
+  }
+}
+
 async function checkOtp(stateLoginOtp, formData) {
   const otp = formData.get("otp");
   if (otp === "") {
@@ -330,4 +357,4 @@ async function ResendOtp(stateResendOtp, formData) {
     };
   }
 }
-export { create, login, checkOtp, me, ResendOtp, ProfileEdit, AddressCreate, editForm, deletedForm, logout};
+export { create, login, checkOtp, me, ResendOtp, ProfileEdit, AddressCreate, editForm, deletedForm, logout, checkCoupon};
