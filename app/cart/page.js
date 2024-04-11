@@ -11,6 +11,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Coupon from "./coupon";
 
 function page() {
   const state = useSelector((state) => state.shoppingCard);
@@ -126,19 +127,8 @@ function page() {
                     </button>
                   </div>
                 </div>
-                <div className="row mt-4">
-                  <div className="col-12 col-md-6">
-                    <div className="input-group mb-3">
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="کد تخفیف"
-                      />
-                      <button className="input-group-text" id="basic-addon2">
-                        اعمال کد تخفیف
-                      </button>
-                    </div>
-                  </div>
+                <div className="row mt-4 ">
+                  <Coupon/>
                   <div className="col-12 col-md-6  d-flex align-items-center ">
                     <div>انتخاب آدرس</div>
                     <select
