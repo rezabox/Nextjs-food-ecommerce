@@ -4,10 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import Pagebtn from "./pagebtn";
+import AddCart from "./addcart";
 
 async function ProductPage({ params }) {
   const product = await getFetch(`/products/${decodeURI(params.slug)}`);
   const productRandom = await getFetch("/random-products?count=4");
+
   return (
     <div>
       <section className="single_page_section layout_padding">
@@ -113,7 +115,7 @@ async function ProductPage({ params }) {
           <div className="row gx-3">
             {productRandom.map((item) => (
               <div className="col-sm-6 col-lg-3">
-                <div className="box">
+                <div className="box">           
                   <div>
                     <Link href={`/products/${item.slug}`} className="img-box cursor-pointer">
                       <Image
@@ -156,7 +158,7 @@ async function ProductPage({ params }) {
                           
                         </h6>
                         <a href="">
-                          <i className="bi bi-cart-fill text-white fs-5"></i>
+                            <AddCart product={item}/>
                         </a>
                       </div>
                     </div>
