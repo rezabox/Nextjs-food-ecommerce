@@ -28,7 +28,7 @@ export const cartSlice = createSlice({
       // Save cart to localStorage
     },
     decrement: (state, action) => {
-       state.cart = state.cart.map((p) =>
+      state.cart = state.cart.map((p) =>
         p.id === action.payload ? { ...p, qty: p.qty - 1 } : p
       );
       localStorage.setItem("cartItems", JSON.stringify(state.cart));
@@ -53,4 +53,10 @@ export const {
 export const cartReducer = cartSlice.reducer;
 
 // Load cart from localStorage when Redux store initializes
-
+export const totalAmountCart = ({ shoppingCard }) => {
+ return shoppingCard.cart.reduce((total, product) => {
+    return product.is_sale
+      ? total + product.sale_price * product.qty
+      : total + product.price * product.qty;
+  }, 0);
+};
