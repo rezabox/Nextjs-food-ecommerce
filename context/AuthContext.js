@@ -2,6 +2,7 @@
 import { me } from "@/actions/contact";
 import { getFetch } from "@/utils/fetch";
 import { createContext, useEffect, useState } from "react"
+import { toast } from "react-toastify";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -24,7 +25,8 @@ export const AuthProvider = ({ children }) => {
   }
 
   const logoutContext = (user) => {
-     setUser(null)
+    setUser(null)
+    toast.success('خروج با موفقیت انجام شد.')
   }
   return(
     <AuthContext.Provider value={{ user,loginContext, logoutContext }}>
