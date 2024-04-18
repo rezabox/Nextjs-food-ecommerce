@@ -37,7 +37,6 @@ export const cartSlice = createSlice({
     clear_item: (state, action) => {
       state.cart = [];
       localStorage.clear(); // Clear cart from localStorage
-      toast.success("محصولات با موفقیت حذف شدند.");
     },
   },
 });
