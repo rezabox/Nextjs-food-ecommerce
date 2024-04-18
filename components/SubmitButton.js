@@ -7,7 +7,7 @@ function SubmitButton({title, style}) {
     <div>
       <button type='submit' disabled={pending} className={style}>
           {title}
-          {pending ? <div className='spinner-border spinner-boarder-sm ms-2'></div> : <></>}        
+          {pending ? <div className='spinner-border spinner-border-sm ms-2'></div> : <></>}        
       </button>
     </div>
   )
