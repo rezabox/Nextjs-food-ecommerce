@@ -18,7 +18,7 @@ function Address({setAddressId}) {
      return (<div className="spinner-border spinner-border-sm ms-2"></div>)
   }
   if(addresses.length == 0){
-    return(<Link href="/profile/address" className="btn btn-primary col-md-2 h-25">ایجاد آدرس</Link>)
+    return(<Link href="/profile/address" className="btn btn-primary col-md-3 h-30">ایجاد آدرس</Link>)
   }
 
   return (
