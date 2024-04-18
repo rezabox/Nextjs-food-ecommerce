@@ -5,6 +5,7 @@ import {
   decrement,
   increment,
   removeFromCart2,
+  totalAmountCart,
 } from "@/redux/slices/cardSlice";
 import { numberFormat, salePercent } from "@/utils/help";
 import Image from "next/image";
@@ -12,10 +13,15 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Coupon from "./coupon";
+import Address from "./Address";
 
 function page() {
   const state = useSelector((state) => state.shoppingCard);
+  const state_p = useSelector(totalAmountCart);
+  const [coupon, setCoupon] = useState({ code: "", percent: 0 });
+  const [addressId, setAddressId] = useState("");
   const dispatch = useDispatch();
+
   return (
     <div>
       {state.cart.length != 0 ? (
@@ -127,22 +133,10 @@ function page() {
                     </button>
                   </div>
                 </div>
-                <div className="row mt-4 ">
-                  <Coupon/>
-                  <div className="col-12 col-md-6  d-flex align-items-center ">
-                    <div>انتخاب آدرس</div>
-                    <select
-                      style={{ width: "200px" }}
-                      className="form-select ms-3"
-                      aria-label="Default select example"
-                    >
-                      {/* <option selected>منزل</option>
-                    <option defaultValue={1}>محل کار</option> */}
-                    </select>
-                    <a href="profile.html" className="btn btn-primary ">
-                      ایجاد آدرس
-                    </a>
-                  </div>
+                <div className="row mt-4">
+                  <Coupon setCoupon={setCoupon}/>
+                    {addressId}
+                  <Address setAddressId={setAddressId}/>
                 </div>
                 <div className="row justify-content-center mt-5">
                   <div className="col-12 col-md-6">
@@ -152,18 +146,18 @@ function page() {
                         <ul className="list-group mt-4">
                           <li className="list-group-item d-flex justify-content-between">
                             <div>مجموع قیمت :</div>
-                            <div>535,000 تومان</div>
+                            <div>{numberFormat(state_p)}تومان</div>
                           </li>
                           <li className="list-group-item d-flex justify-content-between">
                             <div>
                               تخفیف :
-                              <span className="text-danger ms-1">10%</span>
+                              <span className="text-danger ms-1">{coupon.percent}%</span>
                             </div>
-                            <div className="text-danger">53,500 تومان</div>
+                            <div className="text-danger">{numberFormat((state_p  * coupon.percent) / 100)} تومان</div>
                           </li>
                           <li className="list-group-item d-flex justify-content-between">
                             <div>قیمت پرداختی :</div>
-                            <div>481,500 تومان</div>
+                            <div>{numberFormat(state_p - (state_p  * coupon.percent) / 100)} تومان</div>
                           </li>
                         </ul>
                         <button className="user_option btn-auth mt-4">
