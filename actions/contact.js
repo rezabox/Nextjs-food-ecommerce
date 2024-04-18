@@ -1,6 +1,6 @@
 "use server";
 
-import { postFetch } from "@/utils/fetch";
+import { getFetch, postFetch } from "@/utils/fetch";
 import { handleError } from "@/utils/help";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
@@ -216,11 +216,13 @@ async function logout(stateLogout, formData) {
   if (data.status === "success") {
     cookies().delete('token'); 
     return {
-       success: "خروج با موفقیت انجام شد."
+       status: "success",
+       message: "خروج با موفقیت انجام شد."
     };
   } else {
     return {
-      error:"خروج به درستی انجام نشد."
+      status: data.status,
+      message: handleError(data.message),
     };
   }
 }
@@ -249,6 +251,12 @@ async function checkCoupon(stateCheckCoupon, formData) {
        message: handleError(data.message)
     };
   }
+}
+
+async function getAddresses(){
+  const token = cookies().get('token');
+  const data = await getFetch('/user/addresses', { 'Authorization': `Bearer ${token.value}` })
+  return data
 }
 
 async function checkOtp(stateLoginOtp, formData) {
@@ -357,4 +365,4 @@ async function ResendOtp(stateResendOtp, formData) {
     };
   }
 }
-export { create, login, checkOtp, me, ResendOtp, ProfileEdit, AddressCreate, editForm, deletedForm, logout, checkCoupon};
+export { create, login, checkOtp, me, ResendOtp, ProfileEdit, AddressCreate, editForm, deletedForm, logout, checkCoupon, getAddresses};
