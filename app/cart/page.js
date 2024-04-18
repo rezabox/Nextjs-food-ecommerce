@@ -14,6 +14,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Coupon from "./coupon";
 import Address from "./Address";
+import Payment from "./Payment";
 
 function page() {
   const state = useSelector((state) => state.shoppingCard);
@@ -133,10 +134,11 @@ function page() {
                     </button>
                   </div>
                 </div>
-                <div className="row mt-4">
+                <div className="row mt-2 ">
                   <Coupon setCoupon={setCoupon}/>
-                    {addressId}
+                  <div className="col-12 col-md-10 d-flex align-items-center justify-content-between">
                   <Address setAddressId={setAddressId}/>
+                  </div>
                 </div>
                 <div className="row justify-content-center mt-5">
                   <div className="col-12 col-md-6">
@@ -160,9 +162,7 @@ function page() {
                             <div>{numberFormat(state_p - (state_p  * coupon.percent) / 100)} تومان</div>
                           </li>
                         </ul>
-                        <button className="user_option btn-auth mt-4">
-                          پرداخت
-                        </button>
+                        <Payment cart={state.cart} coupon={coupon} addressId={addressId}/>
                       </div>
                     </div>
                   </div>
