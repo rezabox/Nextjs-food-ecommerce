@@ -39,8 +39,12 @@ async function ProfileEdit(state, formData) {
       message: "تمام موارد فرم پروفایل برای ویرایش الزامی است .",
     };
   }
-  const token = cookies().get('token');
-  const res = await postFetch("/profile/info/edit", { name, email }, { 'Authorization': `Bearer ${token.value}` });
+  const token = cookies().get("token");
+  const res = await postFetch(
+    "/profile/info/edit",
+    { name, email },
+    { Authorization: `Bearer ${token.value}` }
+  );
 
   if (res.status === "success") {
     return {
@@ -61,7 +65,7 @@ async function AddressCreate(stateCreate, formActionCreate) {
   const province_id = formActionCreate.get("province_id");
   const city_id = formActionCreate.get("city_id");
   const address = formActionCreate.get("address");
-  
+
   if (title === "" || address === "") {
     return {
       status: "error",
@@ -69,25 +73,29 @@ async function AddressCreate(stateCreate, formActionCreate) {
     };
   }
   const cellphonePattern = /^(\+98|0)?9\d{9}$/i;
-  if(cellphone === '' || !cellphonePattern.test(cellphone)){
+  if (cellphone === "" || !cellphonePattern.test(cellphone)) {
     return {
       status: "error",
-      message:"فیلد شماره تماس نامعتبر است",
-    }
+      message: "فیلد شماره تماس نامعتبر است",
+    };
   }
   const postalPattern = /^\d{5}[ -]?\d{5}$/i;
-  if(postal_code === '' || !postalPattern.test(postal_code)){
-      return {
-        status: "error",
-        message:"فیلد کد پستی نامعتبر است ."
-      }
+  if (postal_code === "" || !postalPattern.test(postal_code)) {
+    return {
+      status: "error",
+      message: "فیلد کد پستی نامعتبر است .",
+    };
   }
 
-  const token = cookies().get('token');
-  const res = await postFetch("/profile/addresses/create", { title, cellphone, postal_code, province_id, city_id, address }, { 'Authorization': `Bearer ${token.value}` });
+  const token = cookies().get("token");
+  const res = await postFetch(
+    "/profile/addresses/create",
+    { title, cellphone, postal_code, province_id, city_id, address },
+    { Authorization: `Bearer ${token.value}` }
+  );
 
   if (res.status === "success") {
-    revalidatePath('proflie/address');
+    revalidatePath("proflie/address");
     return {
       status: res.status,
       message: "پیام با موقیت ثبت شد",
@@ -107,7 +115,7 @@ async function editForm(stateEdit, formActionEdit) {
   const city_id = formActionEdit.get("city_id");
   const address = formActionEdit.get("address");
   const address_id = formActionEdit.get("address_id");
-  
+
   if (title === "" || address === "") {
     return {
       status: "error",
@@ -117,26 +125,38 @@ async function editForm(stateEdit, formActionEdit) {
   if (address_id === "" || null) {
     return {
       status: "error",
-      message: "شناسه آدرس الزامی است.",  
+      message: "شناسه آدرس الزامی است.",
     };
   }
   const cellphonePattern = /^(\+98|0)?9\d{9}$/i;
-  if(cellphone === '' || !cellphonePattern.test(cellphone)){
+  if (cellphone === "" || !cellphonePattern.test(cellphone)) {
     return {
       status: "error",
-      message:"فیلد شماره تماس نامعتبر است",
-    }
+      message: "فیلد شماره تماس نامعتبر است",
+    };
   }
   const postalPattern = /^\d{5}[ -]?\d{5}$/i;
-  if(postal_code === '' || !postalPattern.test(postal_code)){
-      return {
-        status: "error",
-        message:"فیلد کد پستی نامعتبر است ."
-      }
+  if (postal_code === "" || !postalPattern.test(postal_code)) {
+    return {
+      status: "error",
+      message: "فیلد کد پستی نامعتبر است .",
+    };
   }
 
-  const token = cookies().get('token');
-  const res = await postFetch("/profile/addresses/edit", { title, cellphone, postal_code, province_id, city_id, address, address_id }, { 'Authorization': `Bearer ${token.value}` });
+  const token = cookies().get("token");
+  const res = await postFetch(
+    "/profile/addresses/edit",
+    {
+      title,
+      cellphone,
+      postal_code,
+      province_id,
+      city_id,
+      address,
+      address_id,
+    },
+    { Authorization: `Bearer ${token.value}` }
+  );
 
   if (res.status === "success") {
     return {
@@ -151,18 +171,22 @@ async function editForm(stateEdit, formActionEdit) {
   }
 }
 async function deletedForm(stateDelete, formActionDelete) {
-  const address_id = formActionDelete.get('address_id');
-  if(address_id === '' || null){
+  const address_id = formActionDelete.get("address_id");
+  if (address_id === "" || null) {
     return {
       status: "error",
-      message: "شناسه آدرس الزامی است.",  
+      message: "شناسه آدرس الزامی است.",
     };
   }
-  const token = cookies().get('token');
-  const res = await postFetch("/profile/addresses/delete", { address_id }, { 'Authorization': `Bearer ${token.value}` });
+  const token = cookies().get("token");
+  const res = await postFetch(
+    "/profile/addresses/delete",
+    { address_id },
+    { Authorization: `Bearer ${token.value}` }
+  );
 
   if (res.status === "success") {
-    revalidatePath("/profile/address")
+    revalidatePath("/profile/address");
     return {
       status: res.status,
       message: "حذف آدرس با موفقیت انجام شد.",
@@ -171,6 +195,32 @@ async function deletedForm(stateDelete, formActionDelete) {
     return {
       status: res.status,
       message: handleError(res.message),
+    };
+  }
+}
+async function getPayment(statePay, formPay) {
+  const coupon = formPay.get('coupon');
+  const address_id = formPay.get('address_id');
+  const cart = formPay.get('cart');
+  
+  if(address_id === ''){
+      return {
+           status: "error",
+           message: "آدرس مورد نظر را اضافه کنید."
+      }
+  }
+  const token = cookies().get('token')
+  const data = await postFetch('/payment/send', { cart:JSON.parse(cart), coupon, address_id } ,  { Authorization: `Bearer ${token.value}`})
+  if (data.status === "success") {
+    return {
+      status: data.status,
+      message: "درحال انتقال به درگاه پرداخت...",
+      url: data.data.url,  
+    };
+  } else {
+    return {
+      status: data.status,
+      message: handleError(data.message),
     };
   }
 }
@@ -211,13 +261,17 @@ async function login(stateLogin, formData) {
   }
 }
 async function logout(stateLogout, formData) {
-  const token = cookies().get('token');  
-  const data = await postFetch("/auth/logout", {} , { 'Authorization': `Bearer ${token.value}` });
+  const token = cookies().get("token");
+  const data = await postFetch(
+    "/auth/logout",
+    {},
+    { Authorization: `Bearer ${token.value}` }
+  );
   if (data.status === "success") {
-    cookies().delete('token'); 
+    cookies().delete("token");
     return {
-       status: "success",
-       message: "خروج با موفقیت انجام شد."
+      status: "success",
+      message: "خروج با موفقیت انجام شد.",
     };
   } else {
     return {
@@ -228,35 +282,41 @@ async function logout(stateLogout, formData) {
 }
 
 async function checkCoupon(stateCheckCoupon, formData) {
-  const code = formData.get('code');  
-  if(code === ''){
-     return {
-        status: "error",
-        message: "وارد کردن کد کوپن الزامی است."
-     }
+  const code = formData.get("code");
+  if (code === "") {
+    return {
+      status: "error",
+      message: "وارد کردن کد کوپن الزامی است.",
+    };
   }
-  const token = cookies().get('token');  
-  const data = await postFetch("/check-coupon", {code} ,  { 'Authorization': `Bearer ${token.value}` });
+  const token = cookies().get("token");
+  const data = await postFetch(
+    "/check-coupon",
+    { code },
+    { Authorization: `Bearer ${token.value}` }
+  );
 
   if (data.status === "success") {
     return {
-       status: data.status,
-       message: "کد تخفیف شما اعمال شد.",
-       percent: data.data.percentage,
-       code,
+      status: data.status,
+      message: "کد تخفیف شما اعمال شد.",
+      percent: data.data.percentage,
+      code,
     };
   } else {
     return {
-       status: data.status,
-       message: handleError(data.message)
+      status: data.status,
+      message: handleError(data.message),
     };
   }
 }
 
-async function getAddresses(){
-  const token = cookies().get('token');
-  const data = await getFetch('/user/addresses', { 'Authorization': `Bearer ${token.value}` })
-  return data
+async function getAddresses() {
+  const token = cookies().get("token");
+  const data = await getFetch("/user/addresses", {
+    Authorization: `Bearer ${token.value}`,
+  });
+  return data;
 }
 
 async function checkOtp(stateLoginOtp, formData) {
@@ -341,10 +401,9 @@ async function ResendOtp(stateResendOtp, formData) {
     };
   }
 
-  const data = await postFetch(
-    "/auth/resend-otp",
-    { login_token: token.value },
-  );
+  const data = await postFetch("/auth/resend-otp", {
+    login_token: token.value,
+  });
   if (data.status === "success") {
     cookies().set({
       name: "login_token",
@@ -356,7 +415,7 @@ async function ResendOtp(stateResendOtp, formData) {
     return {
       status: data.status,
       message: "کد ورود با موفقیت برای شما ارسال شد",
-      user: data.data.user
+      user: data.data.user,
     };
   } else {
     return {
@@ -365,4 +424,35 @@ async function ResendOtp(stateResendOtp, formData) {
     };
   }
 }
-export { create, login, checkOtp, me, ResendOtp, ProfileEdit, AddressCreate, editForm, deletedForm, logout, checkCoupon, getAddresses};
+async function paymentVerify(trackId, status){
+    const token = cookies().get('token');
+    const data = await postFetch('/payment/verify', { token:trackId, status }, { 'Authorization': `Bearer ${token.value}`})
+    if(data.status === 'success'){
+       return {
+           status: data.status,
+           payment: data.data
+       }
+    } else {
+        return {
+           status: data.status,
+           message: handleError(data.message),
+        }
+    }
+}
+
+export {
+  create,
+  login,
+  checkOtp,
+  me,
+  ResendOtp,
+  ProfileEdit,
+  AddressCreate,
+  editForm,
+  deletedForm,
+  logout,
+  checkCoupon,
+  getAddresses,
+  getPayment,
+  paymentVerify
+};
