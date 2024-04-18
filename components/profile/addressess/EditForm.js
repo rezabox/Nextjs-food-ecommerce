@@ -86,7 +86,7 @@ function EditForm({ address, provinces, cities }) {
               />
             </div>
           </form>
-          <DeleteForm  address={address.id}/>       
+          <DeleteForm  addressId={address.id}/>       
         </div>
     </div>
   );
